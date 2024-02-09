@@ -39,7 +39,7 @@ public class AprilTagDrive extends MecanumDrive {
         // TODO: tune
         static Vector2d camera1Offset = new Vector2d(
                 0,
-                6);
+                -9);
         static Vector2d camera2Offset = new Vector2d(
                 0,
                 -5);//6);

@@ -23,7 +23,7 @@ public class Tele extends LinearOpMode {
 
     Gamepad currentGamepad1 = new Gamepad();
     Gamepad previousGamepad1 = new Gamepad();
-
+    public double speedmodifier = 1;
     //Slide info State and target
     public int SlideTarget = 0;
 
@@ -75,8 +75,10 @@ public class Tele extends LinearOpMode {
     }
     ClawPivotState CurrentClawPivot = ClawPivotState.RetractedPivot;
     //public double ClawPivotTarget = 0;
-
-
+    public double tempDegrees = 0;
+    public double CurrentDegrees = 0;
+    public boolean facePixels = false;
+    public double turnLeftAdd = 0;
     //Claw Open Close
     public boolean ClawOpenOrClose = true; //Claw is closed if var is true
     @Override
@@ -100,7 +102,7 @@ public class Tele extends LinearOpMode {
             // Store gamepad
             previousGamepad1.copy(currentGamepad1);
             currentGamepad1.copy(gamepad1);
-
+            CurrentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             //Slides
             //SetPowers
             Robot.LeftSlide.setPower(SlideControllerLeft.calculatePid(SlideTarget));
@@ -114,7 +116,9 @@ public class Tele extends LinearOpMode {
                 CurrentSlideState = SlideState.values()[SlideStateCounter % SlideState.values().length];
                 SlideTarget = CurrentSlideState.ticks;
             }
-
+            if(currentGamepad1.options && !previousGamepad1.options){
+                imu.resetYaw();
+            }
             //Mini Arm
 
 
@@ -171,12 +175,19 @@ public class Tele extends LinearOpMode {
                 ClawOpenOrClose = false;
             }
 
-
+            if(currentGamepad1.dpad_down && !previousGamepad1.dpad_down && speedmodifier == 1){
+                speedmodifier = .5;
+            }else if(currentGamepad1.dpad_down && !previousGamepad1.dpad_down && speedmodifier == .5){
+                speedmodifier = 1;
+            }
+            if(currentGamepad1.dpad_left && !previousGamepad1.dpad_left){
+                facePixels = true;
+            }
             //Drive
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
-
+            rx += turnLeftAdd;
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio,
             // but only if at least one is out of the range [-1, 1]
@@ -185,11 +196,23 @@ public class Tele extends LinearOpMode {
             double backLeftPower = (y - x + rx) / denominator;
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
-
-            Robot.dtFrontLeftMotor.setPower(-frontLeftPower);
-            Robot.dtBackLeftMotor.setPower(-backLeftPower);
-            Robot.dtFrontRightMotor.setPower(-frontRightPower);
-            Robot.dtBackRightMotor.setPower(-backRightPower);
+            if (facePixels){
+                tempDegrees = Math.floorMod((long)CurrentDegrees - (long)-80, 360);
+                if(tempDegrees > -180){
+                    turnLeftAdd = 1;
+                }
+                else{
+                    turnLeftAdd =  -1;
+                }
+                if(tempDegrees > 355 || tempDegrees < 5){
+                    facePixels = false;
+                    turnLeftAdd = 0;
+                }
+            }
+            Robot.dtFrontLeftMotor.setPower(-frontLeftPower * speedmodifier);
+            Robot.dtBackLeftMotor.setPower(-backLeftPower * speedmodifier);
+            Robot.dtFrontRightMotor.setPower(-frontRightPower * speedmodifier);
+            Robot.dtBackRightMotor.setPower(-backRightPower * speedmodifier);
             //Telemetry dat on the Robot
             telemetry.addData("CurrentSlideState",CurrentSlideState);
             telemetry.addData("counter", SlideStateCounter);
@@ -197,6 +220,7 @@ public class Tele extends LinearOpMode {
             telemetry.addData("current mini arm state", CurrentMiniArmState);
             telemetry.addData("claw State (True = claw is closed)", ClawOpenOrClose);
             telemetry.addData("claw State (True = claw is closed)", CurrentMiniArmState.miniarmangle);
+            telemetry.addData("Imu Heading", CurrentDegrees);
             telemetry.update();
 
         }

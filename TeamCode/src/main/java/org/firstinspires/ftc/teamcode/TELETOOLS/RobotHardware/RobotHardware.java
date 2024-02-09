@@ -46,6 +46,10 @@ public class RobotHardware {
 
         dtFrontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         dtBackRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        dtBackLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        dtBackRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        dtFrontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        dtFrontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         Intake = hardwareMap.get(DcMotorEx.class, "IntakeMotor");
         Intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
