@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.helpers;
 
 import android.util.Size;
 
@@ -10,10 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.helpers.PoseStorage;
-import org.firstinspires.ftc.teamcode.helpers.vision.CameraStreamProcessor;
-import org.firstinspires.ftc.teamcode.helpers.vision.PipelineProcessor;
-import org.firstinspires.ftc.teamcode.vision.pipelines.TeamPropDeterminationPipeline;
+import org.firstinspires.ftc.teamcode.RRExtras.CameraStreamProcessor;
+import org.firstinspires.ftc.teamcode.helpers.vision.TeamPropDeterminationPipeline;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
