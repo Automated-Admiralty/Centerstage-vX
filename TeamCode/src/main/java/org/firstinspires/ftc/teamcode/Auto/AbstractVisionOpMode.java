@@ -34,8 +34,8 @@ import org.firstinspires.ftc.teamcode.RRExtras.AprilTagDrive;
 import org.firstinspires.ftc.teamcode.helpers.Helpers;
 import org.firstinspires.ftc.teamcode.helpers.PoseStorage;
 import org.firstinspires.ftc.teamcode.helpers.VisionHelper;
-//import org.firstinspires.ftc.teamcode.motor.MotorActions;
-//import org.firstinspires.ftc.teamcode.motor.MotorControl;
+import org.firstinspires.ftc.teamcode.motor.MotorActions;
+import org.firstinspires.ftc.teamcode.motor.MotorControl;
 //TODO : ADD Back
 import org.firstinspires.ftc.teamcode.helpers.vision.TeamPropDeterminationPipeline;
 
@@ -64,9 +64,9 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
      * @return the starting pose
      */
     public abstract Pose2d startPose();
-  //  public abstract Action trajLeft(AprilTagDrive drive, MotorActions motorActions);
-    //public abstract Action trajCenter(AprilTagDrive drive, MotorActions motorActions);
-    //public abstract Action trajRight(AprilTagDrive drive, MotorActions motorActions);
+    public abstract Action trajLeft(AprilTagDrive drive, MotorActions motorActions);
+    public abstract Action trajCenter(AprilTagDrive drive, MotorActions motorActions);
+    public abstract Action trajRight(AprilTagDrive drive, MotorActions motorActions);
 
     /**
      * The INIT-loop
@@ -87,11 +87,11 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
     public void runOpMode()
     {
         // Initalize the basic motor control, base PID loops etc
-        //MotorControl motorControl = new MotorControl(hardwareMap);
+        MotorControl motorControl = new MotorControl(hardwareMap);
         // MotorActions wraps motor control in RR actions that I can use in trajectories
-        //MotorActions motorActions = new MotorActions(motorControl);
+        MotorActions motorActions = new MotorActions(motorControl);
         // Grab the preloaded pixel with the claw
-       // Actions.runBlocking(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.CLOSED));
+        Actions.runBlocking(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.CLOSED));
 
 
 
@@ -100,14 +100,14 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
         VisionHelper vision = new VisionHelper(hardwareMap, team());
 
         // Init our custom version of MecanumDrive that corrects with apriltags
-        AprilTagDrive drive = new AprilTagDrive(hardwareMap, startPose(), vision);
+        AprilTagDrive drive = new AprilTagDrive(hardwareMap, startPose(), vision); //April tag augmented relocalization
         //MecanumDrive drive = new MecanumDrive(hardwareMap, startPose());
 
         // Initalize the trajectories based on the implementations of the abstract classes
         // Also we init here assuming it'll take a bit, though it seems fast in 1.0
-      //  Action trajLeft = trajLeft(drive, motorActions);
-       // Action trajCenter = trajCenter(drive, motorActions);
-        //Action trajRight = trajRight(drive, motorActions);
+        Action trajLeft = trajLeft(drive, motorActions);
+        Action trajCenter = trajCenter(drive, motorActions);
+        Action trajRight = trajRight(drive, motorActions);
 
 
         /*
@@ -148,9 +148,9 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
                 telemetry.update();
             }
             if (reloadTrajectories.getAndSet(false)) {
-              //  trajLeft = trajLeft(drive, motorActions);
-            //    trajCenter = trajCenter(drive, motorActions);
-          //      trajRight = trajRight(drive, motorActions);
+               trajLeft = trajLeft(drive, motorActions);
+               trajCenter = trajCenter(drive, motorActions);
+               trajRight = trajRight(drive, motorActions);
             }
 
             vision.initLoop(telemetry);
@@ -178,7 +178,7 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
 
         // Here we use the selection from the vision to select the right trajectory
         // Then we use RaceParallelCommand to run both the trajectory and our motor updating until the trajectory ends
-        /*
+
         switch (snapshotAnalysis)
         {
             case LEFT:
@@ -223,7 +223,6 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
     }
 
 
-         */
 
-}
+
 }
