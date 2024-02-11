@@ -164,8 +164,9 @@ public class MotorControl {
             LeftSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             RightSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             LeftSlide.setDirection(DcMotorSimple.Direction.REVERSE);
-            PIDCONTROLLERTOOL MCSlideControllerLeft = new PIDCONTROLLERTOOL(.018, 0, .00002, .0005, 384.5 / 360, LeftSlide);//TODO tune these values in the test file
-            PIDCONTROLLERTOOL MCSlideControllerRight = new PIDCONTROLLERTOOL(.018, 0, .00002, .0005, 384.5 / 360, RightSlide);//TODO tune these values in the test file
+
+            MCSlideControllerLeft = new PIDCONTROLLERTOOL(.018, 0, .00002, .0005, 384.5 / 360, LeftSlide);//TODO tune these values in the test file
+            MCSlideControllerRight = new PIDCONTROLLERTOOL(.018, 0, .00002, .0005, 384.5 / 360, RightSlide);//TODO tune these values in the test file
 
         }
 
@@ -184,6 +185,7 @@ public class MotorControl {
          * This updates the slide motor to match the current state. This should be run in a loop.
          */
         public void update() {
+
             LeftSlide.setPower(MCSlideControllerLeft.calculatePid(MCCurrentSlideState.MCticks));
             RightSlide.setPower(MCSlideControllerRight.calculatePid(MCCurrentSlideState.MCticks));
         }

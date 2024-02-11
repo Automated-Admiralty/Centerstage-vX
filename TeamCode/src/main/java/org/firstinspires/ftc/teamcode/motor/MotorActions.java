@@ -35,23 +35,7 @@ public class MotorActions {
             return true; // this returns true to make it loop forever; use RaceParallelCommand
         };
     }
-    public Action DepositToScoringPose() {
-        return t -> {
-            slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3);
-            miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring);
-            clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot);
 
-            return true; // this returns true to make it loop forever; use RaceParallelCommand
-        };
-    }
-    public Action DepositToRetractedPose() {
-        return t -> {
-            miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING);
-            clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot);
-            slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED);
-            return true; // this returns true to make it loop forever; use RaceParallelCommand
-        };
-    }
 
     public class Slides {
         public Action setSlideTargetState(MotorControl.Slides.MCSlideState SlideState) {
