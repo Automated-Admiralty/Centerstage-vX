@@ -110,7 +110,7 @@ public class AprilTagDrive extends MecanumDrive {
             filteredVector = posFilter.update(twist.value(), aprilVector);
             // then we add the kalman filtered position to the localizer heading as a pose
             pose = new Pose2d(aprilVector, localizerPose.heading);
-            shouldTagCorrect = false; // TODO disable
+           // shouldTagCorrect = false; // TODO disable
         } else {
             // if we can't see tags, we use the localizer position to update the kalman fiter
             // not sure if this is logical at all?? seems to work
