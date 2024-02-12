@@ -209,8 +209,8 @@ public class MotorControl {
 
         //boolean resetting = false;
         public enum MCClawState {
-            OPEN(0),
-            CLOSED(1);
+            OPEN(1),
+            CLOSED(0);
             private final int MCCLAWOPENVSCLOSED;
 
             private MCClawState(final int MCCLAWOPENVSCLOSED) {
@@ -305,8 +305,8 @@ public class MotorControl {
         //boolean resetting = false;
         public enum MCIntakeState {
             IDLE(0),
-            IN(.5),
-            OUT(-.5);
+            IN(-.5),
+            OUT(.5);
             private final double MCIntakeSpeed;
 
             private MCIntakeState(final double MCIntakeSpeed) {
@@ -323,6 +323,7 @@ public class MotorControl {
             IntakeMotor = hardwareMap.get(DcMotorEx.class, "IntakeMotor");
             IntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             IntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
 

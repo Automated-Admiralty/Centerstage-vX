@@ -58,25 +58,26 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-16,10),Math.toRadians(0))
                 .splineTo(new Vector2d(25,10),Math.toRadians(0))
-                .splineTo(new Vector2d(38,35),Math.toRadians(90))
-                .waitSeconds(.25)
-                .splineToConstantHeading(new Vector2d(45,41),Math.toRadians(90))
+                .splineTo(new Vector2d(40,35),Math.toRadians(90))
+                .waitSeconds(1)
+                .splineToConstantHeading(new Vector2d(45,30),Math.toRadians(90))
                 .endTrajectory()
                 //Score
-                .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
-                .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
-                .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
-                .waitSeconds(.4)
-                .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
+                .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND2))
                 .waitSeconds(.5)
+                .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
+                .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend2Pivot))
+                .waitSeconds(1)
+                .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(.4)
+                .waitSeconds(1)
 
 
                 // PARK
-                .strafeTo(new Vector2d(56,10))
+              //  .strafeTo(new Vector2d(56,10))
                 .build();
 
 
@@ -86,9 +87,9 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
         return drive.actionBuilder(drive.pose)
 
-                .stopAndAdd(drive.CorrectWithTagAction())
+               // .stopAndAdd(drive.CorrectWithTagAction())
                 //GOTO GROUND PIXEL
-                .lineToY(14)
+                .lineToY(11)
                 .endTrajectory()
                 //OutakePurple
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -99,27 +100,28 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-18,12),Math.toRadians(0))
                 .setReversed(true)
-                .strafeTo(new Vector2d(25,12))
-                .splineToConstantHeading(new Vector2d(38,35),Math.toRadians(0))
+                .strafeTo(new Vector2d(50,12))
+                .splineToConstantHeading(new Vector2d(51,39.5),Math.toRadians(0))
                 .turn(Math.toRadians(90))
-                .waitSeconds(.25)
-                .lineToX(45)
+                .waitSeconds(1)
+                //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
                 //Score
-                .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
-                .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
-                .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
-                .waitSeconds(.4)
-                .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
+                .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND2))
                 .waitSeconds(.5)
+                .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
+                .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend2Pivot))
+                .waitSeconds(1)
+                .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(.4)
+                .waitSeconds(1)
 
 
                 // PARK
-                .splineToConstantHeading(new Vector2d(56,10), Math.toRadians(0))
+                //.splineToConstantHeading(new Vector2d(56,10), Math.toRadians(0))
 
 
                 .build();
@@ -154,9 +156,9 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .splineToConstantHeading(new Vector2d(45,-41),Math.toRadians(-90))
                 .endTrajectory()
                 //Score
-                .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
+                .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND2))
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
-                .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
+                .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend2Pivot))
                 .waitSeconds(.4)
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(.5)
