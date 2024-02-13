@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.motor.MotorControl;
 
 import kotlin.NotImplementedError;
 
-@Autonomous(preselectTeleOp = "Tele", name = "BlueFarPreload", group = "Blue")
+@Autonomous(preselectTeleOp = "Tele", name = "BlueClosePreload", group = "Blue")
 
 public class BlueClosePreload extends AbstractVisionOpMode {
     /**
@@ -35,7 +35,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
      */
     @Override
     public Pose2d startPose() {
-        return new Pose2d(36,62,Math.toRadians(90));
+        return new Pose2d(12,62,Math.toRadians(90));
     }
 
     @Override
@@ -43,10 +43,10 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
         return drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                // .stopAndAdd(drive.CorrectWithTagAction())
-                // GOTO GROUND PIXEL
-                .lineToY(40)
-                .splineToConstantHeading(new Vector2d(-50,18), Math.toRadians(90))
+                .splineTo(new Vector2d(35,45), Math.toRadians(0))
+
+                .strafeTo(new Vector2d(35,30))
+                .strafeTo(new Vector2d(14,30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -56,11 +56,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-                .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-16,10),Math.toRadians(0))
-                .splineTo(new Vector2d(50,12),Math.toRadians(0))
-                .splineTo(new Vector2d(62.25,37.5),Math.toRadians(90))
-                .waitSeconds(.5)
+
                 // .splineToConstantHeading(new Vector2d(44,30),Math.toRadians(90))
                 .endTrajectory()
                 //Score
@@ -90,7 +86,11 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
                 // .stopAndAdd(drive.CorrectWithTagAction())
                 //GOTO GROUND PIXEL
-                .lineToY(11)
+                .setReversed(true)
+                .strafeTo(new Vector2d(45,45))
+                .turn(Math.toRadians(90))
+                .strafeTo(new Vector2d(45,35))
+                .strafeTo(new Vector2d(30,20))
                 .endTrajectory()
                 //OutakePurple
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -98,14 +98,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.IDLE))
 
                 //GOTO BACKBOARD
-                .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-18,12),Math.toRadians(0))
-                .setReversed(true)
-                .strafeTo(new Vector2d(50,12))
-                .splineToConstantHeading(new Vector2d(51,38),Math.toRadians(0))
-                .turn(Math.toRadians(90))
-                .lineToX(60.75)
-                .waitSeconds(1)
+                .strafeTo(new Vector2d(51.75,38))
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
                 //Score
@@ -139,8 +132,10 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
                 //.stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
-                .lineToY(32)
-                .turn(Math.toRadians(-90))
+                .setReversed(true)
+                .splineTo(new Vector2d(35,45), Math.toRadians(0))
+                .strafeTo(new Vector2d(35,30))
+
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -150,16 +145,6 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-
-                .setReversed(true)
-                .turn(Math.toRadians(90))
-                .lineToY(8)
-                .setReversed(true)
-                .strafeTo(new Vector2d(50,12))
-                .splineToConstantHeading(new Vector2d(51,44.75),Math.toRadians(0))
-                .turn(Math.toRadians(90))
-                .lineToX(60.9)
-                .waitSeconds(1)
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
