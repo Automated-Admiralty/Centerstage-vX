@@ -31,6 +31,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RRExtras.AprilTagDrive;
+import org.firstinspires.ftc.teamcode.RRExtras.MecanumDrive;
 import org.firstinspires.ftc.teamcode.helpers.Helpers;
 import org.firstinspires.ftc.teamcode.helpers.PoseStorage;
 import org.firstinspires.ftc.teamcode.helpers.VisionHelper;
@@ -64,9 +65,9 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
      * @return the starting pose
      */
     public abstract Pose2d startPose();
-    public abstract Action trajLeft(AprilTagDrive drive, MotorActions motorActions);
-    public abstract Action trajCenter(AprilTagDrive drive, MotorActions motorActions);
-    public abstract Action trajRight(AprilTagDrive drive, MotorActions motorActions);
+    public abstract Action trajLeft(MecanumDrive drive, MotorActions motorActions);
+    public abstract Action trajCenter(MecanumDrive drive, MotorActions motorActions);
+    public abstract Action trajRight(MecanumDrive drive, MotorActions motorActions);
 
     /**
      * The INIT-loop
@@ -100,7 +101,7 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
         VisionHelper vision = new VisionHelper(hardwareMap, team());
 
         // Init our custom version of MecanumDrive that corrects with apriltags
-        AprilTagDrive drive = new AprilTagDrive(hardwareMap, startPose(), vision); //April tag augmented relocalization
+        MecanumDrive drive = new MecanumDrive(hardwareMap, startPose()); //April tag augmented relocalization
         //MecanumDrive drive = new MecanumDrive(hardwareMap, startPose());
 
         // Initalize the trajectories based on the implementations of the abstract classes
@@ -221,8 +222,6 @@ public abstract class AbstractVisionOpMode extends LinearOpMode
     public Action switchFrontCam() {
         return vision.switchFrontAction();
     }
-
-
 
 
 }

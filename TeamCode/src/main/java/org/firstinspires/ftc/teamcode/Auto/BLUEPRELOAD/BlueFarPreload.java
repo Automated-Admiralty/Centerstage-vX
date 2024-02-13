@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Auto.AbstractVisionOpMode;
 import org.firstinspires.ftc.teamcode.RRExtras.AprilTagDrive;
+import org.firstinspires.ftc.teamcode.RRExtras.MecanumDrive;
 import org.firstinspires.ftc.teamcode.helpers.PoseStorage;
 import org.firstinspires.ftc.teamcode.motor.MotorActions;
 import org.firstinspires.ftc.teamcode.motor.MotorControl;
@@ -38,14 +39,14 @@ public class BlueFarPreload extends AbstractVisionOpMode {
     }
 
     @Override
-    public Action trajRight(AprilTagDrive drive, MotorActions motorActions) {
+    public Action trajRight(MecanumDrive drive, MotorActions motorActions) {
 
         return drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .stopAndAdd(drive.CorrectWithTagAction())
+               // .stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
                 .lineToY(40)
-                .splineToConstantHeading(new Vector2d(-46,18), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-50,18), Math.toRadians(90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -57,10 +58,10 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 // GOTO BACKBOARD
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-16,10),Math.toRadians(0))
-                .splineTo(new Vector2d(25,10),Math.toRadians(0))
-                .splineTo(new Vector2d(40,35),Math.toRadians(90))
-                .waitSeconds(1)
-                .splineToConstantHeading(new Vector2d(45,30),Math.toRadians(90))
+                .splineTo(new Vector2d(50,12),Math.toRadians(0))
+                .splineTo(new Vector2d(62.25,37.5),Math.toRadians(90))
+                .waitSeconds(.5)
+               // .splineToConstantHeading(new Vector2d(44,30),Math.toRadians(90))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
@@ -83,7 +84,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
     }
     @Override
-    public Action trajCenter(AprilTagDrive drive, MotorActions motorActions) {
+    public Action trajCenter(MecanumDrive drive, MotorActions motorActions) {
 
         return drive.actionBuilder(drive.pose)
 
@@ -101,8 +102,9 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .splineToConstantHeading(new Vector2d(-18,12),Math.toRadians(0))
                 .setReversed(true)
                 .strafeTo(new Vector2d(50,12))
-                .splineToConstantHeading(new Vector2d(51,39.5),Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(51,38),Math.toRadians(0))
                 .turn(Math.toRadians(90))
+                .lineToX(60.75)
                 .waitSeconds(1)
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
@@ -131,14 +133,14 @@ public class BlueFarPreload extends AbstractVisionOpMode {
     }
 
     @Override
-    public Action trajLeft(AprilTagDrive drive, MotorActions motorActions) { // TODO TOO LONG
+    public Action trajLeft(MecanumDrive drive, MotorActions motorActions) { // TODO TOO LONG
 
         return drive.actionBuilder(drive.pose) // new Pose2d(-36,-62,Math.toRadians(-90))
 
-                .stopAndAdd(drive.CorrectWithTagAction())
+                //.stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
-                .lineToY(-40)
-                .splineToConstantHeading(new Vector2d(-46,-18), Math.toRadians(-90))
+                .lineToY(32)
+                .turn(Math.toRadians(-90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -148,29 +150,33 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
+
                 .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-16,-10),Math.toRadians(0))
-                .splineTo(new Vector2d(25,-10),Math.toRadians(0))
-                .splineTo(new Vector2d(38,-35),Math.toRadians(-90))
-                .waitSeconds(.25)
-                .splineToConstantHeading(new Vector2d(45,-41),Math.toRadians(-90))
+                .turn(Math.toRadians(90))
+                .lineToY(8)
+                .setReversed(true)
+                .strafeTo(new Vector2d(50,12))
+                .splineToConstantHeading(new Vector2d(51,44.75),Math.toRadians(0))
+                .turn(Math.toRadians(90))
+                .lineToX(60.9)
+                .waitSeconds(1)
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
-                .waitSeconds(.4)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
-                .waitSeconds(.5)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(.4)
+                .waitSeconds(1)
 
 
-                // PARK
-                .setReversed(true)
-                .splineToConstantHeading(new Vector2d(56,-10), Math.toRadians(0))
                 .build();
+
+
     }
 }
