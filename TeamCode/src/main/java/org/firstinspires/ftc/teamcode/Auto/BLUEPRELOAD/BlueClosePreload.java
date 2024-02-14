@@ -43,10 +43,10 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
         return drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(35,45), Math.toRadians(0))
-
-                .strafeTo(new Vector2d(35,30))
-                .strafeTo(new Vector2d(14,30))
+                .strafeTo(new Vector2d(45,45))
+                .turn(Math.toRadians(90))
+                .strafeTo(new Vector2d(45,30))
+                .strafeTo(new Vector2d(15,30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -56,8 +56,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-
-                // .splineToConstantHeading(new Vector2d(44,30),Math.toRadians(90))
+                .strafeTo(new Vector2d(51.75,24))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
@@ -133,9 +132,10 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 //.stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
                 .setReversed(true)
-                .splineTo(new Vector2d(35,45), Math.toRadians(0))
+                .strafeTo(new Vector2d(45,45))
+                .turn(Math.toRadians(90))
+                .strafeTo(new Vector2d(45,30))
                 .strafeTo(new Vector2d(35,30))
-
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -145,6 +145,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
+                .strafeTo(new Vector2d(51.75,45))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
