@@ -46,7 +46,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(45,45))
                 .turn(Math.toRadians(90))
                 .strafeTo(new Vector2d(45,30))
-                .strafeTo(new Vector2d(15,30))
+                .strafeTo(new Vector2d(20,30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -56,7 +56,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-                .strafeTo(new Vector2d(51.75,24))
+                .strafeTo(new Vector2d(53.75,24))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
@@ -97,7 +97,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.IDLE))
 
                 //GOTO BACKBOARD
-                .strafeTo(new Vector2d(51.75,38))
+                .strafeTo(new Vector2d(52.55,38))
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
                 //Score
@@ -135,7 +135,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(45,45))
                 .turn(Math.toRadians(90))
                 .strafeTo(new Vector2d(45,30))
-                .strafeTo(new Vector2d(35,30))
+                .strafeTo(new Vector2d(37.5,30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -145,7 +145,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-                .strafeTo(new Vector2d(51.75,45))
+                .strafeTo(new Vector2d(53,45))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))

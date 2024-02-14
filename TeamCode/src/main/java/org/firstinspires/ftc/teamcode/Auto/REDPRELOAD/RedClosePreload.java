@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.BLUEPRELOAD;
+package org.firstinspires.ftc.teamcode.Auto.REDPRELOAD;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -15,9 +15,9 @@ import org.firstinspires.ftc.teamcode.motor.MotorControl;
 
 import kotlin.NotImplementedError;
 
-@Autonomous(preselectTeleOp = "Tele", name = "BlueFarPreload", group = "Blue")
+@Autonomous(preselectTeleOp = "Tele", name = "RedClosePreload", group = "Red")
 
-public class BlueFarPreload extends AbstractVisionOpMode {
+public class RedClosePreload extends AbstractVisionOpMode {
     /**
      * Is this a red or a blue autonomous?
      *
@@ -25,7 +25,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
      */
     @Override
     public PoseStorage.Team team() {
-        return PoseStorage.Team.BLUE;
+        return PoseStorage.Team.RED;
     }
 
     /**
@@ -35,18 +35,18 @@ public class BlueFarPreload extends AbstractVisionOpMode {
      */
     @Override
     public Pose2d startPose() {
-        return new Pose2d(-36,62,Math.toRadians(90));
+        return new Pose2d(12,-62,Math.toRadians(-90));
     }
 
     @Override
-    public Action trajRight(MecanumDrive drive, MotorActions motorActions) {
+    public Action trajLeft(MecanumDrive drive, MotorActions motorActions) {
 
         return drive.actionBuilder(drive.pose)
                 .setReversed(true)
-               // .stopAndAdd(drive.CorrectWithTagAction())
-                // GOTO GROUND PIXEL
-                .lineToY(40)
-                .splineToConstantHeading(new Vector2d(-50,18), Math.toRadians(90))
+                .strafeTo(new Vector2d(45,-45))
+                .turn(Math.toRadians(-90))
+                .strafeTo(new Vector2d(45,-30))
+                .strafeTo(new Vector2d(20,-30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -56,12 +56,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-                .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-16,10),Math.toRadians(0))
-                .splineTo(new Vector2d(50,12),Math.toRadians(0))
-                .splineTo(new Vector2d(62.25,37.5),Math.toRadians(90))
-                .waitSeconds(.5)
-               // .splineToConstantHeading(new Vector2d(44,30),Math.toRadians(90))
+                .strafeTo(new Vector2d(51,-22.5))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
@@ -78,7 +73,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
 
                 // PARK
-              //  .strafeTo(new Vector2d(56,10))
+                //  .strafeTo(new Vector2d(56,10))
                 .build();
 
 
@@ -88,9 +83,13 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
         return drive.actionBuilder(drive.pose)
 
-               // .stopAndAdd(drive.CorrectWithTagAction())
+                // .stopAndAdd(drive.CorrectWithTagAction())
                 //GOTO GROUND PIXEL
-                .lineToY(11)
+                .setReversed(true)
+                .strafeTo(new Vector2d(45,-45))
+                .turn(Math.toRadians(-90))
+                .strafeTo(new Vector2d(45,-35))
+                .strafeTo(new Vector2d(30,-16))
                 .endTrajectory()
                 //OutakePurple
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -98,14 +97,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.IDLE))
 
                 //GOTO BACKBOARD
-                .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-18,12),Math.toRadians(0))
-                .setReversed(true)
-                .strafeTo(new Vector2d(50,12))
-                .splineToConstantHeading(new Vector2d(51,38),Math.toRadians(0))
-                .turn(Math.toRadians(90))
-                .lineToX(60.75)
-                .waitSeconds(1)
+                .strafeTo(new Vector2d(50.25,-32.5))
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
                 //Score
@@ -133,14 +125,17 @@ public class BlueFarPreload extends AbstractVisionOpMode {
     }
 
     @Override
-    public Action trajLeft(MecanumDrive drive, MotorActions motorActions) { // TODO TOO LONG
+    public Action trajRight(MecanumDrive drive, MotorActions motorActions) { // TODO TOO LONG
 
         return drive.actionBuilder(drive.pose) // new Pose2d(-36,-62,Math.toRadians(-90))
 
                 //.stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
-                .lineToY(32)
+                .setReversed(true)
+                .strafeTo(new Vector2d(45,-45))
                 .turn(Math.toRadians(-90))
+                .strafeTo(new Vector2d(45,-30))
+                .strafeTo(new Vector2d(43,-30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -150,16 +145,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-
-                .setReversed(true)
-                .turn(Math.toRadians(90))
-                .lineToY(8)
-                .setReversed(true)
-                .strafeTo(new Vector2d(50,12))
-                .splineToConstantHeading(new Vector2d(51,43.75),Math.toRadians(0))
-                .turn(Math.toRadians(90))
-                .lineToX(61.4)
-                .waitSeconds(1)
+                .strafeTo(new Vector2d(52.3,-40))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))

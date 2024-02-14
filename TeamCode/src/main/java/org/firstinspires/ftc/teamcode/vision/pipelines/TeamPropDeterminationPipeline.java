@@ -36,11 +36,11 @@ public class TeamPropDeterminationPipeline extends OpenCvPipeline
      */
     static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0,225);
     static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(200,250);
-    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(475,225);
-    static final int SIDE_REGION_WIDTH = 150;
+    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(600,225);
+    static final int SIDE_REGION_WIDTH = 200;
     static final int SIDE_REGION_HEIGHT = 175;
     static final int FRONT_REGION_WIDTH = 250;
-    static final int FRONT_REGION_HEIGHT = 100;
+    static final int FRONT_REGION_HEIGHT = 175;
 
     /*
      * Points which actually define the sample region rectangles, derived from above values

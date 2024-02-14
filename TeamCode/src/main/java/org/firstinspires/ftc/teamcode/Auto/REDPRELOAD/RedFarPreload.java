@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.motor.MotorControl;
 
 import kotlin.NotImplementedError;
 
-@Autonomous(preselectTeleOp = "Tele", name = "RedFarPreload", group = "Blue")
+@Autonomous(preselectTeleOp = "Tele", name = "RedFarPreload", group = "Red")
 
 public class RedFarPreload extends AbstractVisionOpMode {
     /**
@@ -35,7 +35,7 @@ public class RedFarPreload extends AbstractVisionOpMode {
      */
     @Override
     public Pose2d startPose() {
-        return new Pose2d(-36,62,Math.toRadians(90));
+        return new Pose2d(-36,-62,Math.toRadians(-90));
     }
 
     @Override
@@ -43,9 +43,8 @@ public class RedFarPreload extends AbstractVisionOpMode {
 
         return drive.actionBuilder(drive.pose)
 
-               // .stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
-                .lineToY(-30)
+                .lineToY(-32)
                 .turn(Math.toRadians(90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -56,28 +55,31 @@ public class RedFarPreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
+
                 .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-40,-10), Math.toRadians(0))
-                .strafeTo(new Vector2d(15,-10))
-                .splineToLinearHeading(new Pose2d(40,-35,Math.toRadians(-180)),Math.toRadians(-180))
-                .waitSeconds(.25)
-                .splineToConstantHeading(new Vector2d(45,-41),Math.toRadians(90))
+                .turn(Math.toRadians(-90))
+                .lineToY(-8)
+                .setReversed(true)
+                .strafeTo(new Vector2d(50,-12))
+                .splineToConstantHeading(new Vector2d(49.75,-43),Math.toRadians(0))
+                .turn(Math.toRadians(-90))
+                .lineToX(61.4)
+                .waitSeconds(1)
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
-                .waitSeconds(.4)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
-                .waitSeconds(.5)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(.4)
+                .waitSeconds(1)
 
 
-                // PARK
-                .splineToConstantHeading(new Vector2d(56,-10),Math.toRadians(0))
                 .build();
 
 
@@ -87,9 +89,8 @@ public class RedFarPreload extends AbstractVisionOpMode {
 
         return drive.actionBuilder(drive.pose)
 
-               // .stopAndAdd(drive.CorrectWithTagAction())
                 //GOTO GROUND PIXEL
-                .lineToY(-14)
+                .lineToY(-11)
                 .endTrajectory()
                 //OutakePurple
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -100,27 +101,29 @@ public class RedFarPreload extends AbstractVisionOpMode {
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-18,-12),Math.toRadians(0))
                 .setReversed(true)
-                .strafeTo(new Vector2d(25,-12))
-                .splineToConstantHeading(new Vector2d(38,-35),Math.toRadians(0))
+                .strafeTo(new Vector2d(50,-12))
+                .splineToConstantHeading(new Vector2d(49.5,-37),Math.toRadians(0))
                 .turn(Math.toRadians(-90))
-                .waitSeconds(.25)
-                .lineToX(45)
+                .lineToX(59.5)
+                .waitSeconds(1)
+                //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
-                .waitSeconds(.4)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
-                .waitSeconds(.5)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(.4)
+                .waitSeconds(1)
 
 
                 // PARK
-                .splineToConstantHeading(new Vector2d(56,-10), Math.toRadians(0))
+                //.splineToConstantHeading(new Vector2d(56,10), Math.toRadians(0))
 
 
                 .build();
@@ -134,10 +137,10 @@ public class RedFarPreload extends AbstractVisionOpMode {
 
         return drive.actionBuilder(drive.pose) // new Pose2d(-36,-62,Math.toRadians(-90))
                 .setReversed(true)
-                //.stopAndAdd(drive.CorrectWithTagAction())
+                // .stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
-                .lineToY(30)
-                .turn(Math.toRadians(-90))
+                .lineToY(-40)
+                .splineToConstantHeading(new Vector2d(-51.5,-18), Math.toRadians(-90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -148,28 +151,28 @@ public class RedFarPreload extends AbstractVisionOpMode {
 
                 // GOTO BACKBOARD
                 .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-40,10), Math.toRadians(0))
-                .strafeTo(new Vector2d(25,10))
-                .splineTo(new Vector2d(38,35),Math.toRadians(180))
-                .strafeTo(new Vector2d(45,29))
+                .splineToConstantHeading(new Vector2d(-16,-10),Math.toRadians(0))
+                .splineTo(new Vector2d(50,-12),Math.toRadians(0))
+                .splineTo(new Vector2d(60,-36),Math.toRadians(-90))
+                .waitSeconds(.5)
+                // .splineToConstantHeading(new Vector2d(44,30),Math.toRadians(90))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.Scoring))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
-                .waitSeconds(.4)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
-                .waitSeconds(.5)
+                .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(.4)
-
-                // Park
-                .strafeTo(new Vector2d(56,10))
-                .endTrajectory()
+                .waitSeconds(1)
 
 
+                // PARK
+                //  .strafeTo(new Vector2d(56,10))
                 .build();
     }
 }
