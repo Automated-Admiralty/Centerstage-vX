@@ -100,120 +100,135 @@ public class Tele extends LinearOpMode {
 
         while (opModeIsActive()) {
             // Store gamepad
-            previousGamepad1.copy(currentGamepad1);
-            currentGamepad1.copy(gamepad1);
-            CurrentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            //Slides
-            //SetPowers
-            Robot.LeftSlide.setPower(SlideControllerLeft.calculatePid(SlideTarget));
-            Robot.RightSlide.setPower(SlideControllerRight.calculatePid(SlideTarget));
-            //Increment counter
-            if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper) SlideStateCounter++;
-
-            if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper) SlideStateCounter = 0;
-            //Swtich Bettwen States
-            if(gamepad1.right_stick_button) {
-                CurrentSlideState = SlideState.values()[SlideStateCounter % SlideState.values().length];
-                SlideTarget = CurrentSlideState.ticks;
-            }
-            if(currentGamepad1.options && !previousGamepad1.options){
-                imu.resetYaw();
-            }
-            //Mini Arm
+            if(gamepad1.right_stick_button && gamepad1.left_stick_button) {
+                Robot.LeftSlide.setPower(-.75);
+                Robot.RightSlide.setPower(-.75);
+                Robot.dtFrontRightMotor.setPower(0);
+                Robot.dtBackRightMotor.setPower(0);
+                Robot.dtFrontLeftMotor.setPower(0);
+                Robot.dtBackLeftMotor.setPower(0);
+            }else if (gamepad1.left_stick_button){
+                Robot.LeftSlide.setPower(-.1);
+                Robot.RightSlide.setPower(-.1);
+            }else {
 
 
-            //Mini Arm Set Position
-            Robot.MiniArmLeft.setPosition(CurrentMiniArmState.miniarmangle);
-            Robot.MiniArmRight.setPosition(CurrentMiniArmState.miniarmangle);
+                previousGamepad1.copy(currentGamepad1);
+                currentGamepad1.copy(gamepad1);
+                CurrentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                //Slides
+                //SetPowers
+                Robot.LeftSlide.setPower(SlideControllerLeft.calculatePid(SlideTarget));
+                Robot.RightSlide.setPower(SlideControllerRight.calculatePid(SlideTarget));
+                //Increment counter
+                if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper)
+                    SlideStateCounter++;
 
-            //MiniArmControlStatment
-            if(currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Scoring){
-                CurrentMiniArmState = MiniArmState.HOVERING;
-            }else if(currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Intaking && CurrentSlideState != SlideState.RETRACTED){
-                CurrentMiniArmState = MiniArmState.Scoring;
-            } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.HOVERING) {
-                CurrentMiniArmState = MiniArmState.Intaking;
-            }else if(currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Intaking && CurrentSlideState == SlideState.RETRACTED){
-                CurrentMiniArmState = MiniArmState.HOVERING;
-            }
-
-
-            //ClawPivotControl
-            if(CurrentMiniArmState == MiniArmState.Intaking || CurrentMiniArmState == MiniArmState.HOVERING){
-                CurrentClawPivot = ClawPivotState.RetractedPivot;
-            } else if (CurrentMiniArmState != MiniArmState.Intaking&& CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND1 ) {
-                CurrentClawPivot = ClawPivotState.Extend1Pivot;
-            } else if (CurrentMiniArmState != MiniArmState.Intaking&& CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND2 ) {
-                CurrentClawPivot = ClawPivotState.Extend2Pivot;
-            }else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING&& CurrentSlideState == SlideState.EXTEND3 ) {
-                CurrentClawPivot = ClawPivotState.Extend3Pivot;
-            }else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING&& CurrentSlideState == SlideState.EXTEND4 ) {
-                CurrentClawPivot = ClawPivotState.Extend4Pivot;
-            }else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND5 ) {
-                CurrentClawPivot = ClawPivotState.Extend5Pivot;
-            }else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING &&CurrentSlideState == SlideState.MAXEXTEND ) {
-                CurrentClawPivot = ClawPivotState.MaxHiehgtPivot;
-            }
-            //ClawPivotSetPosition
-            Robot.ClawPivotLeft.setPosition(CurrentClawPivot.ClawAngle);
-            Robot.ClawPivotRight.setPosition(CurrentClawPivot.ClawAngle);
-
-            //Intake Motor
-            if(gamepad1.x){
-                Robot.Intake.setPower(.5);
-            }else if(gamepad1.b){
-                Robot.Intake.setPower(-.5);
-            }else{
-                Robot.Intake.setPower(0);
-            }
-
-            if(currentGamepad1.a && !previousGamepad1.a && ClawOpenOrClose == false){
-                Robot.Claw.setPosition(1);
-                ClawOpenOrClose = true;
-            }else if(currentGamepad1.a&& !previousGamepad1.a && ClawOpenOrClose == true){
-                Robot.Claw.setPosition(0);
-                ClawOpenOrClose = false;
-            }
-
-            if(currentGamepad1.dpad_down && !previousGamepad1.dpad_down && speedmodifier == 1){
-                speedmodifier = .5;
-            }else if(currentGamepad1.dpad_down && !previousGamepad1.dpad_down && speedmodifier == .5){
-                speedmodifier = 1;
-            }
-            if(currentGamepad1.dpad_left && !previousGamepad1.dpad_left){
-                facePixels = true;
-            }
-            //Drive
-            double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-            double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-            double rx = gamepad1.right_stick_x;
-            rx += turnLeftAdd;
-            // Denominator is the largest motor power (absolute value) or 1
-            // This ensures all the powers maintain the same ratio,
-            // but only if at least one is out of the range [-1, 1]
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (y + x + rx) / denominator;
-            double backLeftPower = (y - x + rx) / denominator;
-            double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x - rx) / denominator;
-            if (facePixels){
-                tempDegrees = Math.floorMod((long)CurrentDegrees - (long)-80, 360);
-                if(tempDegrees > -180){
-                    turnLeftAdd = 1;
+                if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper)
+                    SlideStateCounter = 0;
+                //Swtich Bettwen States
+                if (gamepad1.right_stick_button) {
+                    CurrentSlideState = SlideState.values()[SlideStateCounter % SlideState.values().length];
+                    SlideTarget = CurrentSlideState.ticks;
                 }
-                else{
-                    turnLeftAdd =  -1;
+                if (currentGamepad1.options && !previousGamepad1.options) {
+                    imu.resetYaw();
                 }
-                if(tempDegrees > 355 || tempDegrees < 5){
-                    facePixels = false;
-                    turnLeftAdd = 0;
+                //Mini Arm
+
+
+                //Mini Arm Set Position
+                Robot.MiniArmLeft.setPosition(CurrentMiniArmState.miniarmangle);
+                Robot.MiniArmRight.setPosition(CurrentMiniArmState.miniarmangle);
+
+                //MiniArmControlStatment
+                if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Scoring) {
+                    CurrentMiniArmState = MiniArmState.HOVERING;
+                } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Intaking && CurrentSlideState != SlideState.RETRACTED) {
+                    CurrentMiniArmState = MiniArmState.Scoring;
+                } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.HOVERING) {
+                    CurrentMiniArmState = MiniArmState.Intaking;
+                } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Intaking && CurrentSlideState == SlideState.RETRACTED) {
+                    CurrentMiniArmState = MiniArmState.HOVERING;
                 }
+
+
+                //ClawPivotControl
+                if (CurrentMiniArmState == MiniArmState.Intaking || CurrentMiniArmState == MiniArmState.HOVERING) {
+                    CurrentClawPivot = ClawPivotState.RetractedPivot;
+                } else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND1) {
+                    CurrentClawPivot = ClawPivotState.Extend1Pivot;
+                } else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND2) {
+                    CurrentClawPivot = ClawPivotState.Extend2Pivot;
+                } else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND3) {
+                    CurrentClawPivot = ClawPivotState.Extend3Pivot;
+                } else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND4) {
+                    CurrentClawPivot = ClawPivotState.Extend4Pivot;
+                } else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.EXTEND5) {
+                    CurrentClawPivot = ClawPivotState.Extend5Pivot;
+                } else if (CurrentMiniArmState != MiniArmState.Intaking && CurrentMiniArmState != MiniArmState.HOVERING && CurrentSlideState == SlideState.MAXEXTEND) {
+                    CurrentClawPivot = ClawPivotState.MaxHiehgtPivot;
+                }
+                //ClawPivotSetPosition
+                Robot.ClawPivotLeft.setPosition(CurrentClawPivot.ClawAngle);
+                Robot.ClawPivotRight.setPosition(CurrentClawPivot.ClawAngle);
+
+                //Intake Motor
+                if (gamepad1.x) {
+                    Robot.Intake.setPower(.5);
+                } else if (gamepad1.b) {
+                    Robot.Intake.setPower(-.5);
+                } else {
+                    Robot.Intake.setPower(0);
+                }
+
+                if (currentGamepad1.a && !previousGamepad1.a && ClawOpenOrClose == false) {
+                    Robot.Claw.setPosition(1);
+                    ClawOpenOrClose = true;
+                } else if (currentGamepad1.a && !previousGamepad1.a && ClawOpenOrClose == true) {
+                    Robot.Claw.setPosition(0);
+                    ClawOpenOrClose = false;
+                }
+
+                if (currentGamepad1.dpad_down && !previousGamepad1.dpad_down && speedmodifier == 1) {
+                    speedmodifier = .5;
+                } else if (currentGamepad1.dpad_down && !previousGamepad1.dpad_down && speedmodifier == .5) {
+                    speedmodifier = 1;
+                }
+                if (currentGamepad1.dpad_left && !previousGamepad1.dpad_left) {
+                    facePixels = true;
+                }
+                //Drive
+                double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+                double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+                double rx = gamepad1.right_stick_x;
+                rx += turnLeftAdd;
+                // Denominator is the largest motor power (absolute value) or 1
+                // This ensures all the powers maintain the same ratio,
+                // but only if at least one is out of the range [-1, 1]
+                double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+                double frontLeftPower = (y + x + rx) / denominator;
+                double backLeftPower = (y - x + rx) / denominator;
+                double frontRightPower = (y - x - rx) / denominator;
+                double backRightPower = (y + x - rx) / denominator;
+                if (facePixels) {
+                    tempDegrees = Math.floorMod((long) CurrentDegrees - (long) -80, 360);
+                    if (tempDegrees > -180) {
+                        turnLeftAdd = 1;
+                    } else {
+                        turnLeftAdd = -1;
+                    }
+                    if (tempDegrees > 355 || tempDegrees < 5) {
+                        facePixels = false;
+                        turnLeftAdd = 0;
+                    }
+                }
+                Robot.dtFrontLeftMotor.setPower(-frontLeftPower * speedmodifier);
+                Robot.dtBackLeftMotor.setPower(-backLeftPower * speedmodifier);
+                Robot.dtFrontRightMotor.setPower(-frontRightPower * speedmodifier);
+                Robot.dtBackRightMotor.setPower(-backRightPower * speedmodifier);
+                //Telemetry dat on the Robot
             }
-            Robot.dtFrontLeftMotor.setPower(-frontLeftPower * speedmodifier);
-            Robot.dtBackLeftMotor.setPower(-backLeftPower * speedmodifier);
-            Robot.dtFrontRightMotor.setPower(-frontRightPower * speedmodifier);
-            Robot.dtBackRightMotor.setPower(-backRightPower * speedmodifier);
-            //Telemetry dat on the Robot
             telemetry.addData("CurrentSlideState",CurrentSlideState);
             telemetry.addData("counter", SlideStateCounter);
             telemetry.addData("current Claw Pivot state", CurrentClawPivot);
