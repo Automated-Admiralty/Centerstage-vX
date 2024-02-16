@@ -46,7 +46,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                // .stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
                 .lineToY(40)
-                .splineToConstantHeading(new Vector2d(-50,18), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-46,18), Math.toRadians(90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -59,7 +59,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-16,10),Math.toRadians(0))
                 .splineTo(new Vector2d(50,12),Math.toRadians(0))
-                .splineTo(new Vector2d(62.25,37.5),Math.toRadians(90))
+                .splineTo(new Vector2d(63,40),Math.toRadians(90))
                 .waitSeconds(.5)
                // .splineToConstantHeading(new Vector2d(44,30),Math.toRadians(90))
                 .endTrajectory()
@@ -104,7 +104,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(50,12))
                 .splineToConstantHeading(new Vector2d(51,38),Math.toRadians(0))
                 .turn(Math.toRadians(90))
-                .lineToX(60.75)
+                .lineToX(62.5)
                 .waitSeconds(1)
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
@@ -139,7 +139,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
                 //.stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
-                .lineToY(32)
+                .strafeTo(new Vector2d(-37.25,30))
                 .turn(Math.toRadians(-90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -158,7 +158,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(50,12))
                 .splineToConstantHeading(new Vector2d(51,43.75),Math.toRadians(0))
                 .turn(Math.toRadians(90))
-                .lineToX(61.4)
+                .lineToX(61.5)
                 .waitSeconds(1)
                 .endTrajectory()
                 //Score

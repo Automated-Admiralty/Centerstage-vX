@@ -31,6 +31,7 @@ public class RobotHardware {
 
     public Servo MiniArmLeft;
     public Servo MiniArmRight;
+    public Servo Drone;
 
     public IMU imu;
     public OpenCvWebcam camera;
@@ -71,6 +72,7 @@ public class RobotHardware {
         MiniArmRight.setDirection(Servo.Direction.REVERSE);
         MiniArmLeft.setDirection(Servo.Direction.REVERSE);
 
+        Drone = hardwareMap.get(Servo.class, "Drone");
 
         // imu = hardwareMap.get(IMU.class, "imu");
 

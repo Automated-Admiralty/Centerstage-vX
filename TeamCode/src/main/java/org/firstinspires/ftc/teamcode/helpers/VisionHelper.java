@@ -47,14 +47,14 @@ public class VisionHelper {
         CameraStreamProcessor cameraStreamProcessor = new CameraStreamProcessor();
 
         backCam = hardwareMap.get(WebcamName.class, "Webcam 2");
-        frontCam = hardwareMap.get(WebcamName.class, "Webcam 1");
+        //frontCam = hardwareMap.get(WebcamName.class, "Webcam 1");
 
 
         myVisionPortal = new VisionPortal.Builder()
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .setCameraResolution(new Size(640,480))
                 .setCamera(ClassFactory.getInstance()
-                        .getCameraManager().nameForSwitchableCamera(backCam,frontCam))
+                        .getCameraManager().nameForSwitchableCamera(backCam))
                 .addProcessors(aprilTagBack, aprilTagFront, pipelineProcessor, cameraStreamProcessor)
                 .enableLiveView(true)
                 .build();
@@ -83,7 +83,7 @@ public class VisionHelper {
         frontCamActive = false;
     }
     public void switchFront() {
-        myVisionPortal.setActiveCamera(frontCam);
+       // myVisionPortal.setActiveCamera(frontCam);
         myVisionPortal.setProcessorEnabled(aprilTagBack, false);
         myVisionPortal.setProcessorEnabled(aprilTagFront, true);
         frontCamActive = true;

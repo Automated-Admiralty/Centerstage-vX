@@ -118,6 +118,12 @@ public class Tele extends LinearOpMode {
                 CurrentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 //Slides
                 //SetPowers
+                if(currentGamepad1.dpad_up){
+                    Robot.Drone.setPosition(0);
+                }else{
+                    Robot.Drone.setPosition(1);
+                }
+
                 Robot.LeftSlide.setPower(SlideControllerLeft.calculatePid(SlideTarget));
                 Robot.RightSlide.setPower(SlideControllerRight.calculatePid(SlideTarget));
                 //Increment counter
