@@ -46,7 +46,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(45,45))
                 .turn(Math.toRadians(90))
                 .strafeTo(new Vector2d(45,30))
-                .strafeTo(new Vector2d(20,30))
+                .strafeTo(new Vector2d(16,30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -56,7 +56,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-                .strafeTo(new Vector2d(51,23))
+                .strafeTo(new Vector2d(54,26.5))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))

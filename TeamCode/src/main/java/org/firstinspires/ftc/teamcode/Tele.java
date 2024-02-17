@@ -48,7 +48,8 @@ public class Tele extends LinearOpMode {
 
     //Mini Arm State and var
     public enum MiniArmState{
-        Scoring(.7),
+        Scoringhigh(.9),
+        ScoringLow(.7),
         HOVERING(.0),
         Intaking(.05);
 
@@ -148,16 +149,17 @@ public class Tele extends LinearOpMode {
                 Robot.MiniArmRight.setPosition(CurrentMiniArmState.miniarmangle);
 
                 //MiniArmControlStatment
-                if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Scoring) {
-                    CurrentMiniArmState = MiniArmState.HOVERING;
+                if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.ScoringLow) {
+                    CurrentMiniArmState = MiniArmState.Scoringhigh;
                 } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Intaking && CurrentSlideState != SlideState.RETRACTED) {
-                    CurrentMiniArmState = MiniArmState.Scoring;
+                    CurrentMiniArmState = MiniArmState.ScoringLow;
                 } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.HOVERING) {
                     CurrentMiniArmState = MiniArmState.Intaking;
                 } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Intaking && CurrentSlideState == SlideState.RETRACTED) {
                     CurrentMiniArmState = MiniArmState.HOVERING;
-                }
-
+                }else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Scoringhigh && CurrentSlideState != SlideState.RETRACTED) {
+                        CurrentMiniArmState = MiniArmState.HOVERING;
+                    }
 
                 //ClawPivotControl
                 if (CurrentMiniArmState == MiniArmState.Intaking || CurrentMiniArmState == MiniArmState.HOVERING) {
