@@ -102,8 +102,8 @@ public class Tele extends LinearOpMode {
         while (opModeIsActive()) {
             // Store gamepad
             if(gamepad1.right_stick_button && gamepad1.left_stick_button) {
-                Robot.LeftSlide.setPower(-.75);
-                Robot.RightSlide.setPower(-.75);
+                Robot.LeftSlide.setPower(-.8);
+                Robot.RightSlide.setPower(-.8);
                 Robot.dtFrontRightMotor.setPower(0);
                 Robot.dtBackRightMotor.setPower(0);
                 Robot.dtFrontLeftMotor.setPower(0);
@@ -149,7 +149,7 @@ public class Tele extends LinearOpMode {
                 Robot.MiniArmRight.setPosition(CurrentMiniArmState.miniarmangle);
 
                 //MiniArmControlStatment
-                if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.ScoringLow) {
+                if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.ScoringLow && (CurrentSlideState == SlideState.EXTEND5||CurrentSlideState == SlideState.MAXEXTEND)) {
                     CurrentMiniArmState = MiniArmState.Scoringhigh;
                 } else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Intaking && CurrentSlideState != SlideState.RETRACTED) {
                     CurrentMiniArmState = MiniArmState.ScoringLow;
@@ -159,7 +159,9 @@ public class Tele extends LinearOpMode {
                     CurrentMiniArmState = MiniArmState.HOVERING;
                 }else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.Scoringhigh && CurrentSlideState != SlideState.RETRACTED) {
                         CurrentMiniArmState = MiniArmState.HOVERING;
-                    }
+                }else if (currentGamepad1.y && !previousGamepad1.y && CurrentMiniArmState == MiniArmState.ScoringLow && CurrentSlideState != SlideState.RETRACTED) {
+                    CurrentMiniArmState = MiniArmState.HOVERING;
+                }
 
                 //ClawPivotControl
                 if (CurrentMiniArmState == MiniArmState.Intaking || CurrentMiniArmState == MiniArmState.HOVERING) {
