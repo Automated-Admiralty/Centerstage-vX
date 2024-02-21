@@ -238,11 +238,11 @@ public class Tele_RobotCentric_BackBumperHieghtChange extends LinearOpMode {
                 //Telemetry dat on the Robot
             }
             telemetry.addData("CurrentSlideState",CurrentSlideState);
-            telemetry.addData("counter", SlideStateCounter);
-            telemetry.addData("current Claw Pivot state", CurrentClawPivot);
-            telemetry.addData("current mini arm state", CurrentMiniArmState);
-            telemetry.addData("claw State (True = claw is closed)", ClawOpenOrClose);
-            telemetry.addData("claw State (True = claw is closed)", CurrentMiniArmState.miniarmangle);
+            telemetry.addData("Slide State Counter", SlideStateCounter);
+            telemetry.addData("Current Claw Pivot state", CurrentClawPivot);
+            telemetry.addData("Current Mini Arm State", CurrentMiniArmState);
+            telemetry.addData("Claw State (True = claw is closed)", ClawOpenOrClose);
+            telemetry.addData("Mini Arm Angle", CurrentMiniArmState.miniarmangle);
             telemetry.addData("Imu Heading", CurrentDegrees);
             telemetry.update();
 
