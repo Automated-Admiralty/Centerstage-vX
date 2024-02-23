@@ -43,7 +43,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                // .stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
                 .lineToY(40)
-                .splineToConstantHeading(new Vector2d(-46,18), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-45.5,18), Math.toRadians(90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -53,10 +53,11 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
+                .waitSeconds(4)
                 .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-16,10),Math.toRadians(0))
-                .splineTo(new Vector2d(50,12),Math.toRadians(0))
-                .splineTo(new Vector2d(63,40),Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-16,14),Math.toRadians(0))
+                .splineTo(new Vector2d(50,14),Math.toRadians(0))
+                .splineTo(new Vector2d(62.85,40),Math.toRadians(90))
                 .waitSeconds(.5)
                // .splineToConstantHeading(new Vector2d(44,30),Math.toRadians(90))
                 .endTrajectory()
@@ -69,6 +70,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
                 .waitSeconds(1)
@@ -95,13 +97,14 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.IDLE))
 
                 //GOTO BACKBOARD
+                .waitSeconds(4)
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-18,12),Math.toRadians(0))
                 .setReversed(true)
                 .strafeTo(new Vector2d(50,12))
-                .splineToConstantHeading(new Vector2d(51,38),Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(55,39),Math.toRadians(0))
                 .turn(Math.toRadians(90))
-                .lineToX(62.5)
+                .lineToX(62.95)
                 .waitSeconds(1)
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
@@ -114,6 +117,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
                 .waitSeconds(1)
@@ -136,7 +140,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
                 //.stopAndAdd(drive.CorrectWithTagAction())
                 // GOTO GROUND PIXEL
-                .strafeTo(new Vector2d(-37.25,30))
+                .strafeTo(new Vector2d(-34,30))
                 .turn(Math.toRadians(-90))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -147,15 +151,15 @@ public class BlueFarPreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-
+                .waitSeconds(5)
                 .setReversed(true)
                 .turn(Math.toRadians(90))
                 .lineToY(8)
                 .setReversed(true)
                 .strafeTo(new Vector2d(50,12))
-                .splineToConstantHeading(new Vector2d(51,43.75),Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(55.5,45.2),Math.toRadians(0))
                 .turn(Math.toRadians(90))
-                .lineToX(61.5)
+                .lineToX(61.75)
                 .waitSeconds(1)
                 .endTrajectory()
                 //Score
@@ -167,6 +171,7 @@ public class BlueFarPreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
                 .waitSeconds(1)

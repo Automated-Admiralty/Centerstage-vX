@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.opmode.Tele.TeleOp;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.min;
+
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -7,11 +11,13 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.COMMON.RobotHardware.PIDCONTROLLERTOOL;
 import org.firstinspires.ftc.teamcode.COMMON.RobotHardware.RobotHardware;
+import org.firstinspires.ftc.teamcode.COMMON.RobotHardware.PIDCONTROLLERTOOL;
+
+import java.lang.Math;
 
 @TeleOp
-public class Tele_RobotCentric_TriggerTurn_StickUpHirghtChange extends LinearOpMode {
+public class Tele extends LinearOpMode {
 
     Gamepad currentGamepad1 = new Gamepad();
     Gamepad previousGamepad1 = new Gamepad();
@@ -74,8 +80,6 @@ public class Tele_RobotCentric_TriggerTurn_StickUpHirghtChange extends LinearOpM
     public double turnLeftAdd = 0;
     //Claw Open Close
     public boolean ClawOpenOrClose = true; //Claw is closed if var is true
-    private boolean lastJoystickUp = false;
-    private boolean lastJoystickDown = false;
     @Override
     public void runOpMode() throws InterruptedException {
         RobotHardware Robot = new RobotHardware(hardwareMap);
@@ -95,8 +99,6 @@ public class Tele_RobotCentric_TriggerTurn_StickUpHirghtChange extends LinearOpM
 
         while (opModeIsActive()) {
             // Store gamepad
-            boolean currentJoystickUp = gamepad1.right_stick_y < -0.5;
-            boolean currentJoystickDown = gamepad1.right_stick_y > 0.5;
             if(gamepad1.right_stick_button && gamepad1.left_stick_button) {
                 Robot.LeftSlide.setPower(-.8);
                 Robot.RightSlide.setPower(-.8);
@@ -115,33 +117,21 @@ public class Tele_RobotCentric_TriggerTurn_StickUpHirghtChange extends LinearOpM
                 CurrentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 //Slides
                 //SetPowers
-                if (currentGamepad1.dpad_up) {
+                if(currentGamepad1.dpad_up){
                     Robot.Drone.setPosition(0);
-                } else {
+                }else{
                     Robot.Drone.setPosition(1);
                 }
-
 
                 Robot.LeftSlide.setPower(SlideControllerLeft.calculatePid(SlideTarget));
                 Robot.RightSlide.setPower(SlideControllerRight.calculatePid(SlideTarget));
                 //Increment counter
-                if (currentJoystickDown && !lastJoystickDown) {
-                    SlideStateCounter--;
-                } else if (currentJoystickUp && !lastJoystickUp) {
-                    SlideStateCounter++;
-                } else if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper){
-                    SlideStateCounter = 0;
-                }
-                /*
                 if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper)
                     SlideStateCounter++;
 
                 if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper)
                     SlideStateCounter = 0;
-
-                 */
                 //Swtich Bettwen States
-
                 if (gamepad1.right_stick_button) {
                     CurrentSlideState = SlideState.values()[SlideStateCounter % SlideState.values().length];
                     SlideTarget = CurrentSlideState.ticks;
@@ -219,8 +209,8 @@ public class Tele_RobotCentric_TriggerTurn_StickUpHirghtChange extends LinearOpM
                 //Drive
                 double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
                 double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-                double rx = ((-gamepad1.left_trigger) + gamepad1.right_trigger);
-
+                double rx = gamepad1.right_stick_x;
+                rx += turnLeftAdd;
                 // Denominator is the largest motor power (absolute value) or 1
                 // This ensures all the powers maintain the same ratio,
                 // but only if at least one is out of the range [-1, 1]
@@ -229,15 +219,23 @@ public class Tele_RobotCentric_TriggerTurn_StickUpHirghtChange extends LinearOpM
                 double backLeftPower = (y - x + rx) / denominator;
                 double frontRightPower = (y - x - rx) / denominator;
                 double backRightPower = (y + x - rx) / denominator;
-
+                if (facePixels) {
+                    tempDegrees = Math.floorMod((long) CurrentDegrees - (long) -80, 360);
+                    if (tempDegrees > -180) {
+                        turnLeftAdd = 1;
+                    } else {
+                        turnLeftAdd = -1;
+                    }
+                    if (tempDegrees > 355 || tempDegrees < 5) {
+                        facePixels = false;
+                        turnLeftAdd = 0;
+                    }
+                }
                 Robot.dtFrontLeftMotor.setPower(-frontLeftPower * speedmodifier);
                 Robot.dtBackLeftMotor.setPower(-backLeftPower * speedmodifier);
                 Robot.dtFrontRightMotor.setPower(-frontRightPower * speedmodifier);
                 Robot.dtBackRightMotor.setPower(-backRightPower * speedmodifier);
                 //Telemetry dat on the Robot
-
-                lastJoystickUp = currentJoystickUp;
-                lastJoystickDown = currentJoystickDown;
             }
             telemetry.addData("CurrentSlideState",CurrentSlideState);
             telemetry.addData("Slide State Counter", SlideStateCounter);

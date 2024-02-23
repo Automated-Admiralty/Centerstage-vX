@@ -48,12 +48,12 @@ public class RedClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.IDLE))
-
+                .lineToX(15)
 
 
 
                 // GOTO BACKBOARD
-                .strafeTo(new Vector2d(51,-22.5))
+                .strafeTo(new Vector2d(50,-23.5))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
@@ -64,12 +64,14 @@ public class RedClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
+                // PARK
                 .waitSeconds(1)
 
-
                 // PARK
+                .strafeTo(new Vector2d(56,-62))
                 //  .strafeTo(new Vector2d(56,10))
                 .build();
 
@@ -86,7 +88,7 @@ public class RedClosePreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(45,-45))
                 .turn(Math.toRadians(-90))
                 .strafeTo(new Vector2d(45,-35))
-                .strafeTo(new Vector2d(30,-16))
+                .strafeTo(new Vector2d(30,-18))
                 .endTrajectory()
                 //OutakePurple
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -94,7 +96,7 @@ public class RedClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.IDLE))
 
                 //GOTO BACKBOARD
-                .strafeTo(new Vector2d(50.25,-32.5))
+                .strafeTo(new Vector2d(49.5,-32.85))
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
                 //Score
@@ -106,14 +108,16 @@ public class RedClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
+                // PARK
                 .waitSeconds(1)
-
 
                 // PARK
                 //.splineToConstantHeading(new Vector2d(56,10), Math.toRadians(0))
 
+                .strafeTo(new Vector2d(56,-62))
 
                 .build();
 
@@ -153,10 +157,12 @@ public class RedClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
+                // PARK
                 .waitSeconds(1)
-
+                .strafeTo(new Vector2d(56,-62))
 
                 .build();
 

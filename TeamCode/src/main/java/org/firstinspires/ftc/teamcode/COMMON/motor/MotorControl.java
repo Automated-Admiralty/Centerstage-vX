@@ -127,7 +127,7 @@ public class MotorControl {
             RETRACTED(0),
             EXTEND1(300),
             EXTEND2(600),
-            EXTEND3(900),
+            EXTEND3(1000),
             EXTEND4(1200),
             EXTEND5(1500),
             MAXEXTEND(1800);
@@ -300,8 +300,8 @@ public class MotorControl {
         //boolean resetting = false;
         public enum MCIntakeState {
             IDLE(0),
-            IN(-.5),
-            OUT(.5);
+            IN(-.4),
+            OUT(.4);
             private final double MCIntakeSpeed;
 
             private MCIntakeState(final double MCIntakeSpeed) {

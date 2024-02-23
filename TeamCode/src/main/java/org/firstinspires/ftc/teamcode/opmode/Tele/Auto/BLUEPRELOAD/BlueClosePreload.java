@@ -53,7 +53,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-                .strafeTo(new Vector2d(54,26.5))
+                .strafeTo(new Vector2d(51.5,26.5))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
@@ -62,11 +62,12 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.Extend3Pivot))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
-                .waitSeconds(1)
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(1)
+//                .waitSeconds(1)
 
 
                 // PARK
@@ -86,7 +87,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(45,45))
                 .turn(Math.toRadians(90))
                 .strafeTo(new Vector2d(45,35))
-                .strafeTo(new Vector2d(30,20))
+                .strafeTo(new Vector2d(30,21))
                 .endTrajectory()
                 //OutakePurple
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
@@ -94,7 +95,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.IDLE))
 
                 //GOTO BACKBOARD
-                .strafeTo(new Vector2d(50,38))
+                .strafeTo(new Vector2d(51,36))
                 //.splineToConstantHeading(new Vector2d(41,37.5),Math.toRadians(0))
                 .endTrajectory()
                 //Score
@@ -106,9 +107,10 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(1)
+                //.waitSeconds(1)
 
 
                 // PARK
@@ -132,7 +134,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .strafeTo(new Vector2d(45,45))
                 .turn(Math.toRadians(90))
                 .strafeTo(new Vector2d(45,30))
-                .strafeTo(new Vector2d(37.5,30))
+                .strafeTo(new Vector2d(43.5,30))
                 .endTrajectory()
                 .stopAndAdd(motorActions.intake.setIntakeState(MotorControl.Intake.MCIntakeState.OUT))
                 .waitSeconds(1)
@@ -142,7 +144,7 @@ public class BlueClosePreload extends AbstractVisionOpMode {
 
 
                 // GOTO BACKBOARD
-                .strafeTo(new Vector2d(53,45))
+                .strafeTo(new Vector2d(51.5,44.25))
                 .endTrajectory()
                 //Score
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.EXTEND3))
@@ -153,10 +155,12 @@ public class BlueClosePreload extends AbstractVisionOpMode {
                 .stopAndAdd(motorActions.claw.setClawTargetState(MotorControl.Claw.MCClawState.OPEN))
                 .waitSeconds(1)
                 .stopAndAdd(motorActions.miniArm.setMiniArmTargetState(MotorControl.MiniArm.MCMiniArmState.HOVERING))
+                .waitSeconds(.5)
                 .stopAndAdd(motorActions.clawPivot.setClawPivotTargetState(MotorControl.ClawPivot.MCClawPivotState.RetractedPivot))
                 .stopAndAdd(motorActions.slide.setSlideTargetState(MotorControl.Slides.MCSlideState.RETRACTED))
-                .waitSeconds(1)
+                //.waitSeconds(1)
 
+                .strafeTo(new Vector2d(56,62))
 
                 .build();
 
